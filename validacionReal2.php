@@ -20,8 +20,8 @@ $usuarioLogueado = $usuario->Verificar[0];
 if($usuarioLogueado["nombre"]){
 
 	$resultados["validacion"] = "ok";
-	$resultados["usuario"] =$usuarioLogueado["nombre"];
-
+	$resultados["usuario"] = $usuarioLogueado["nombre"];
+	$resultados["idUsuario"] = $usuarioLogueado["idUsuario"];
 	$idUsuario = $usuarioLogueado["idUsuario"];
 
 	$proyecto = new Proyecto();
@@ -49,7 +49,7 @@ if($usuarioLogueado["nombre"]){
 							 
 			 				);
 
-	 		
+	 	
 
 	 		for ($j = 0; $j < $max2; $j++) {
 			

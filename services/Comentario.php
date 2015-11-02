@@ -4,19 +4,15 @@
 class Comentario
 {
 
-	public $Id;
-	public $Nombre;
-	public $Apellido;
-	public $Password;
-	public $FotoUrl;
-	public $Empresa;
-	public $Descripcion;
-	public $FechaAlta;
-	public $Email;
-	public $IdTipo;
+
+	public $idTarea;
+	public $idUsuario;
+	public $mensaje;
 	public $Listado;
 	public $verificar;
+	public $hora;
 	public $ListarProyeUs;
+	public $fecha;
 	//Conector
 	private $Con;
 	
@@ -27,10 +23,10 @@ class Comentario
 	
 	public function Agregar()
 	{
-		$sql = 
+		$sql = "INSERT INTO `alquimia`.`comentarios` (`comentario`, `fechaComentario`, `idTarea`, `idUsuario`,`hora`) 
+		VALUES ('$this->mensaje','$this->fecha', '$this->idTarea', '$this->idUsuario', '$this->hora')";
 
-		"INSERT INTO `alquimia`.`usuarios` (`nombre`, `foto`, `empresa`, `alta`, `password`, `mail`, `apellido`) 
-		VALUES ('$this->Nombre','$this->FotoUrl', '$this->Empresa',	'$this->FechaAlta', '$this->Password', '$this->Email', '$this->Apellido')";
+
 		return $this->Con->EjecutarABM($sql);
 	}
 	

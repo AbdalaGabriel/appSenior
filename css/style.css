@@ -1,149 +1,149 @@
-#inicio, #home{
-	/*background: #160a33;
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#160a33+0,380763+100 */
-background: #160a33; /* Old browsers */
-background: -moz-linear-gradient(top,  #160a33 0%, #380763 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#160a33), color-stop(100%,#380763)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #160a33 0%,#380763 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #160a33 0%,#380763 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #160a33 0%,#380763 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #160a33 0%,#380763 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#160a33', endColorstr='#380763',GradientType=0 ); /* IE6-9 */
+#inicio,#home{
+	/*background:#160a33;
+	/*Permalink-usetoeditandsharethisgradient:http://colorzilla.com/gradient-editor/#160a33+0,380763+100*/
+background:#160a33;/*Oldbrowsers*/
+background:-moz-linear-gradient(top,#160a330%,#380763100%);/*FF3.6+*/
+background:-webkit-gradient(linear,lefttop,leftbottom,color-stop(0%,#160a33),color-stop(100%,#380763));/*Chrome,Safari4+*/
+background:-webkit-linear-gradient(top,#160a330%,#380763100%);/*Chrome10+,Safari5.1+*/
+background:-o-linear-gradient(top,#160a330%,#380763100%);/*Opera11.10+*/
+background:-ms-linear-gradient(top,#160a330%,#380763100%);/*IE10+*/
+background:linear-gradient(tobottom,#160a330%,#380763100%);/*W3C*/
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#160a33',endColorstr='#380763',GradientType=0);/*IE6-9*/
 
-	text-shadow: none;
+	text-shadow:none;
 }
 
 
-.page{padding: 5%; color: white;    max-width: 90%; }
+.page{padding:5%;color:white;max-width:90%;}
 
 #canvas{
-	position: absolute;
+	position:absolute;
 }
 
 #logo{
-	width: 35%;
-	margin: 10% 32%;
+	width:35%;
+	margin:10%32%;
 }
 .none{
-	background: none;
-border: none;
+	background:none;
+border:none;
 }
 
 
 #formulario{
-	overflow: hidden;
-	position: absolute;
-	bottom: 5%;
-	width: 80%;
-	margin: 0 10%;
+	overflow:hidden;
+	position:absolute;
+	bottom:5%;
+	width:80%;
+	margin:010%;
 }
 
-input{text-align: center;}
+input{text-align:center;}
 
-.submitButton , .ui-btn{
-	background: #22fca8;
-color: white;
-border: none;
-margin: 10% 0 0 0;
+.submitButton,.ui-btn{
+	background:#22fca8;
+color:white;
+border:none;
+margin:10%000;
 }
 
 .ui-content{
-	padding: 0;
-	overflow: hidden;
+	padding:0;
+	overflow:hidden;
 }
 
 
-#home h3{
-	font-size: 1.5em;
-    text-align: center;
-    font-weight: 100;
-    margin: 2em 0;
-    text-transform: uppercase;
+#homeh3{
+	font-size:1.5em;
+text-align:center;
+font-weight:100;
+margin:2em 0;
+text-transform:uppercase;
 }
 
 #projects{
-	background: white;
-	color: black;
+	background:white;
+	color:black;
 }
 
 .proyWp{
-	    max-width: 100%;
-    padding: 2em;
-    background: white;
-    border-top: #37FF92 5px solid;
-    margin: .5em 0;
+	max-width:100%;
+padding:2em;
+background:white;
+border-top:#37FF92 5px solid;
+margin:.5em 0;
 }
 
-.proyWp a{
-	    display: block;
-    max-width: 100%;
-    text-decoration: none;
-    color: grey;
-    font-weight: bold;
-    font-family: Raleway;
+.proyWpa{
+	display:block;
+max-width:100%;
+text-decoration:none;
+color:grey;
+font-weight:bold;
+font-family:Raleway;
 }
 
 #projects{
-	padding-top: 5em;
+	padding-top:5em;
 }
 
 .entregaToggle{
-	color: #B8BDCC;
-    display: block;
-    font-weight: bolder;
-    text-decoration: none;
-     margin: 2em 0 .5em;
-    border-bottom: 1px solid #E0DFDF;
-    padding-bottom: .5em;
-    font-size: 1.2em;
+	color:#B8BDCC;
+display:block;
+font-weight:bolder;
+text-decoration:none;
+margin:2em 0.5em;
+border-bottom:1px solid #E0DFDF;
+padding-bottom:.5em;
+font-size:1.2em;
 }
 
 .entregaToggle[data-numEntrega="0"]{
 	
-      margin: 0em 0 .5em;
-   
+margin:0em 0.5em;
+
 }
 
-#projects .header{
-	    background:#FFC723;;
-    padding: 1em 5%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 91%;
-    text-align: center;
-    color: #FFFFFF;
-    text-shadow: none;
+#projects.header{
+	background:#FFC723;;
+padding:1em 5%;
+position:absolute;
+top:0;
+left:0;
+width:91%;
+text-align:center;
+color:#FFFFFF;
+text-shadow:none;
 }
 
 .check{
-	    float: left;
-    margin: 0 1em 0 0;
-        height: 5em;
+	float:left;
+margin:0 1em 0 0;
+height:5em;
 }
 
 .tarea{
-	    padding: .5em 1em;
-    background: #F3EEFD;
-    border-radius: 3em;
-    float: left;
+	padding:.5em 1em;
+background:#F3EEFD;
+border-radius:3em;
+float:left;
 }
 
 .fecha{
-	    background: #1EE8B7;
-    padding: .5em 1em;
-    color: #FFFFFF;
-    font-size: medium;
-    border-radius: 2em;
-    /* font-weight: bold; */
-    border: 1px solid #1EE8B7;
-    text-shadow: none;
-    margin: 2em 0;
+	background:#1EE8B7;
+padding:.5em 1em;
+color:#FFFFFF;
+font-size:medium;
+border-radius:2em;
+/*font-weight:bold;*/
+border:1px solid #1EE8B7;
+text-shadow:none;
+margin:2em 0;
 }
 
 .tareasWp{
-	    overflow: hidden;
-    height: 7em;
+	overflow:hidden;
+height:7em;
 }
 
 .tareasWp:last-child{
@@ -151,44 +151,44 @@ margin: 10% 0 0 0;
 }
 
 .tagsWp{
-	margin: 0 .5em 0 1.5em;
-	    float: left;
+	margin:0.5em 01.5em;
+	float:left;
 }
 
 .hiden{
-	overflow: hidden;
+	overflow:hidden;
 }
 
 #tituloProyectos{
-	   min-height: 1.1em;
-    text-align: center;
-    font-size: 16px;
-    display: block;
-   margin: 0 !important;
-    padding: 0;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    outline: 0!important;
-    text-transform: uppercase !important;
+	min-height:1.1em;
+text-align:center;
+font-size:16px;
+display:block;
+margin:0!important;
+padding:0;
+text-overflow:ellipsis;
+overflow:hidden;
+white-space:nowrap;
+outline:0!important;
+text-transform:uppercase!important;
 }
 
 .comentsWp{
-	float: left;
+	float:left;
 }
 
-.comentsWp span{
-	padding: .5em 1em;
-    background: #FFF67F;
-    border-radius: 2em;
-    text-shadow: none;
-    color: #CA7070;
+.comentsWpspan{
+	padding:.5em 1em;
+background:#FFF67F;
+border-radius:2em;
+text-shadow:none;
+color:#CA7070;
 }
 
 
-.comentsWp span a{
+.comentsWpspana{
 	
-    text-shadow: none;
-    color: #CA7070;
-    text-decoration: none;
+text-shadow:none;
+color:#CA7070;
+text-decoration:none;
 }
