@@ -1,12 +1,12 @@
 <?php
 header('Content-Type: text/javascript; charset=UTF-8'); 
 
-include 'services/Conector.php';
-include 'services/Usuario.php';
-include 'services/Proyecto.php';
-include 'services/Tareas.php';
-include 'services/Entregas.php';
-include 'services/Comentario.php';
+include 'Conector.php';
+include 'Usuario.php';
+include 'Proyecto.php';
+include 'Tareas.php';
+include 'Entregas.php';
+include 'Comentario.php';
 
 $resultados = array();
 $usuarioEnviado = $_GET['usuario'];
@@ -23,6 +23,7 @@ if($usuarioLogueado["nombre"]){
 	$resultados["usuario"] = $usuarioLogueado["nombre"];
 	$resultados["idUsuario"] = $usuarioLogueado["idUsuario"];
 	$idUsuario = $usuarioLogueado["idUsuario"];
+	$resultados["contra"]= $usuarioLogueado["password"];
 
 	$proyecto = new Proyecto();
 	$proyecto->Listar($idUsuario);
@@ -91,6 +92,7 @@ if($usuarioLogueado["nombre"]){
 							  'titulo' =>utf8_encode($tarFila["titulo"]),
 							  'descripcion' =>utf8_encode($tarFila["descripcion"]),
 							  'numComentarios'=> $max4,
+							  'idTarea' =>utf8_encode($tarFila["idTarea"]),
 				 		
 				 		]);
 

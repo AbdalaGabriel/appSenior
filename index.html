@@ -48,6 +48,7 @@
 	
 		<div data-role="header" class="none">
 		<h1 id="titulo"></h1>
+
 		</div>
 		 
 		<div data-role="main">	
@@ -65,6 +66,7 @@
 	<div data-role="page" id="projects" class="page">
 	
 		<div data-role="header"  class="none header">
+			<a href="#home" class="atrasHome"><</a>
 		<h1 id="tituloProyectos"></h1>
 		</div>
 		 
@@ -81,27 +83,29 @@
 	<div data-role="page" id="tarea" class="page">
 	
 		<div data-role="header"  class="none header">
+		<a href="#projects" id="atrasCom" class="atras"><</a>
 		<h1 id="tituloTarea"></h1>
 		</div>
 		 
-		 <div id="coments">
-		
-
-		</div>
-
-		<div class="agregarComent">
+		 <div data-role="main"  class="none main">
+			 <div id="coments">
 			
-			<form id="agregarCom">
+
+			</div>
+
+			<div class="agregarComent">
 				
-				<textarea  id="coment" value="Agregar comentario"></textarea>
-				<input type="submit" id="submitCom" value="comentar">
+				<form id="agregarCom">
+					
+					<textarea  id="coment" value="Agregar comentario"></textarea>
+					<input type="submit" id="submitCom" data-idTar="" value="comentar">
 
-			</form>
+				</form>
 
-		</div>
+			</div>
 		</div>
  
-	</div>
+</div>
 
 
 <script>
@@ -110,7 +114,19 @@
 	var visitedTareas = false;
 	var visitedComents = false;
 	var actualizedComents = true;
+	var idProyecto;
+	var tituloPro;
+	var idTarea;
+	var idUsuario;
 
+	var datosLocales = '{"0":{"0":{"idProyecto":"3","nombre":"Offset de madera","descripcion":"armar disenos cool para empresa de acerrin"},"entregas":[[{"idEntrega":"2","inicio":"2015-10-07","fechaEntrega":"2015-10-22","titulo":"Terminar requerimientos","descripcion":"asd"}]]},"1":{"0":{"idProyecto":"2","nombre":"Pagina web dinamica","descripcion":"Armar web dinamica para empresa de cartchos de tinta."},"entregas":[{"0":{"idEntrega":"1","inicio":"2015-06-08","fechaEntrega":"2015-06-11","titulo":"Entrega de bocetos","descripcion":"entrega de 3 bocetos-"},"tareas":[[{"inicio":"2015-09-08","entrega":"2015-09-30","progreso":"1","titulo":"Muestra de bocetos","descripcion":"MOstrar al cliente los bocetos","numComentarios":10}],[{"inicio":"2015-09-01","entrega":"2015-09-29","progreso":"1","titulo":"Correción de bocetos, ajustar tipo.","descripcion":"Ajustar personaje en base a correciones del cliente.","numComentarios":0}]]},[{"idEntrega":"3","inicio":"2015-10-01","fechaEntrega":"2015-10-09","titulo":"Frutos al Natural","descripcion":"sd"}]]},"validacion":"ok","usuario":"mr","idUsuario":"1", "contra":"123"}';
+
+    localStorage.setItem("datos",datosLocales);
+  	
+	var datosGuardados = localStorage.getItem("datos");
+	var datosObjeto = JSON.parse(datosGuardados); 
+	var usuario = datosObjeto.usuario;
+	var pass = datosObjeto.contra;
 
 	init();
 
@@ -135,13 +151,10 @@
 
 			else{
 
-				//needLogin();
-		 		var datosGuardados = localStorage.getItem("datos");
-			  	var datosObjeto = JSON.parse(datosGuardados); 
-				var usuario = datosObjeto.usuario;
-				console.log(localStorage);
-
-		    	userLogged();
+				needLogin();
+		 		
+				//obtenerActualizados();
+			
 			}
 		}	
 
@@ -152,23 +165,48 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+function obtenerActualizados(){
 
-function userLogged(){
+	archivoValidacion = "services/validacionReal2.php?jsoncallback=?";
 
-	var datosGuardados = localStorage.getItem("datos");
-	var datosObjeto = JSON.parse(datosGuardados); 
-	var usuario = datosObjeto.usuario;
-
-	console.log(datosObjeto);
-						
-
-	$("#inicio").on("pagebeforeshow", function() { 
-
-		$.mobile.pageContainer.pagecontainer({ defaults: true });
-		var home = $("#home" );
-		$( ":mobile-pagecontainer" ).pagecontainer( "change", home, {  'reload': true,  'allowSamePageTransition': true  });
+	$.getJSON( archivoValidacion, { usuario:usuario ,password:pass}) 
 					
-	});
+					.done(function(respuestaServer) {
+
+						if(respuestaServer.validacion == "ok"){ 
+
+							console.log("bienvenido");
+							console.log(respuestaServer);
+							userLogged(respuestaServer);
+
+
+							
+						 } else{
+
+						 	console.log("lo sentimos ha habido un problema");
+						 }
+
+		});
+
+
+
+};
+
+
+
+function userLogged(objeto){
+
+	var datosObjeto = objeto;
+	localStorage.setItem("datos",datosObjeto);
+
+	var home = $("#home" );
+	$( ":mobile-pagecontainer" ).pagecontainer( "change", home, {  'reload': true,  'allowSamePageTransition': true  });
+	/*var datosGuardados = localStorage.getItem("datos");
+	var datosObjeto = JSON.parse(datosGuardados); 
+	var usuario = datosObjeto.usuario;*/
+
+
+	
 
 
 	$("#home").on("pageshow", function(){
@@ -178,11 +216,11 @@ function userLogged(){
 
 			$("#titulo").append("Bienvenido, "+ usuario);
 							
-			var elementos = (Object.keys(datosObjeto).length)-3;
+			var elementos = (Object.keys(datosObjeto).length)-4;
 			
 			for(var i=0; i<elementos; i++){
 
-				$("#proyectos").append('<div class="proyWp"><a class="proToggle" data-idProy="'+i+'" href="#">' + datosObjeto[i][0].nombre + '</a></div>');
+				$("#proyectos").append('<div class="proyWp"><a class="proToggle" data-idProy="'+datosObjeto[i][0].idProyecto+'" href="#">' + datosObjeto[i][0].nombre + '</a></div>');
 							
 			}
 
@@ -210,19 +248,24 @@ function userLogged(){
 
 function loadTareas(objetoJson, idPro, tit){
 
-	console.log("ojeto" + objetoJson );
-	var idProyecto =  idPro;
-	var tituloPro = tit;
 
-	console.log(idProyecto);
-	console.log(tituloPro);
+
+	console.log(objetoJson);
+	 idProyecto =  idPro;
+	 tituloPro = tit;
+
+	//console.log(idProyecto);
+	//console.log(tituloPro);
 
 	$.mobile.changePage("#projects");
 
-	if(!visitedTareas){
+		
+		$("#entregas").empty();
 
 		visitedTareas = true;
+		console.log("entramos al evento");
 
+		$("#tituloProyectos").empty();
 
 		$("#tituloProyectos").append(tituloPro);
 
@@ -234,11 +277,13 @@ function loadTareas(objetoJson, idPro, tit){
 			$("#entregas").append('<a class="entregaToggle" data-numEntrega="'+j+'" href="#">' + objetoJson[idProyecto].entregas[j][0].titulo + '</a>');
 			var tareas =  (Object.keys(objetoJson[idProyecto].entregas[j].tareas).length);
 
+			console.log("tareas tiene "+tareas);
+
 			if(tareas>0){
 
 				for(var k=0; k<tareas; k++){
 
-					$("#entregas").append('<div class="tareasWp"><div class="hiden"><input class="check" type="checkbox" name="'+objetoJson[idProyecto].entregas[j].tareas[k][0].titulo+'" value=""><p class="tarea">'+objetoJson[idProyecto].entregas[j].tareas[k][0].titulo +'</p></div ><div class="tagsWp"><span class="fecha">'+objetoJson[idProyecto].entregas[j].tareas[k][0].entrega+'</span></div><div class="comentsWp"><span class="coments"><a class="com" href="#">'+objetoJson[idProyecto].entregas[j].tareas[k][0].numComentarios+' comentarios</a></span></div></div>');
+					$("#entregas").append('<div class="tareasWp"><div class="hiden"><input class="check" type="checkbox" name="'+objetoJson[idProyecto].entregas[j].tareas[k][0].titulo+'" value=""><p class="tarea">'+objetoJson[idProyecto].entregas[j].tareas[k][0].titulo +'</p></div ><div class="tagsWp"><span class="fecha">'+objetoJson[idProyecto].entregas[j].tareas[k][0].entrega+'</span></div><div class="comentsWp"><span class="coments"><a class="com" data-idTar="'+objetoJson[idProyecto].entregas[j].tareas[k][0].idTarea+'" href="#">'+objetoJson[idProyecto].entregas[j].tareas[k][0].numComentarios+' comentarios</a></span></div></div>');
 											
 
 					$("#entregas").append('');
@@ -250,8 +295,10 @@ function loadTareas(objetoJson, idPro, tit){
 
 					titulo = $(this).text();
 
-						getComents(titulo);
-					
+					idTarea = $(this).attr("data-idTar");
+
+					getComents(titulo,idProyecto,idTarea);
+									
 				});
 
 
@@ -263,16 +310,8 @@ function loadTareas(objetoJson, idPro, tit){
 
 
 
-	}
 
 
-$(".com").click(function(){
-
-	titulo = $(this).text();
-
-		getComents(titulo);
-	
-});
 
 
 };
@@ -289,12 +328,9 @@ function needLogin(){
 
 $('#formulario').submit(function() {
 
-	alert("h");
-
-
 		var datosUsuario = $("#nombredeusuario").val();
 		var datosPassword = $("#clave").val();
-		archivoValidacion = "validacionReal2.php?jsoncallback=?";
+		archivoValidacion = "services/validacionReal2.php?jsoncallback=?";
 						 
 		$.getJSON( archivoValidacion, { usuario:datosUsuario ,password:datosPassword}) 
 		
@@ -308,25 +344,38 @@ $('#formulario').submit(function() {
 				datosGuardados = localStorage.getItem("datos");
 				datosObjeto = JSON.parse(datosGuardados); 
 				usuario = datosObjeto.usuario;
+				pass = datosObjeto.contra;
+				idUsuario = datosObjeto.idUsuario;
 
 
-				$.mobile.changePage("#home");
+				var home = $("#home" );
+				$( ":mobile-pagecontainer" ).pagecontainer( "change", home, {  'reload': true,  'allowSamePageTransition': true  });
 				
-				alert("h");
-
 
 				$("#home").on("pageshow", function(){
-					alert("j");
+				
 					console.log("bienvenido");
+
+					if(visitedProj){
+
+						$("#proyectos").empty();
+						$("#titulo").empty();
+						$("#entregas").empty();
+						$("#tituloProyectos").empty();
+					}
 			
 				   $("#titulo").append("Bienvenido, "+ datosObjeto.usuario);
 								
-					var elementos = (Object.keys(datosObjeto).length)-3;
+					var elementos = (Object.keys(datosObjeto).length)-4;
 
-				
+					
+
+
+
+
 					for(var i=0; i<elementos; i++){
 				
-						$("#proyectos").append('<div class="proyWp"><a class="proToggle" data-idProy="'+i+'" href="#">' + datosObjeto[i][0].nombre + '</a></div>');
+						$("#proyectos").append('<div class="proyWp"><a class="proToggle" data-idProy="'+datosObjeto[i][0].idProyecto+'" href="#">' + datosObjeto[i][0].nombre + '</a></div>');
 								
 					};
 
@@ -334,15 +383,17 @@ $('#formulario').submit(function() {
 
 					$(".proToggle").click(function(){
 
-						var idProyecto =  $(this).attr("data-idProy");
-						var tituloPro =  $(this).text();
+						 idProyecto =  $(this).attr("data-idProy");
+						 tituloPro =  $(this).text();
 
 						$.mobile.changePage("#projects");
 						$("#tituloProyectos").append(tituloPro);
 
 
 						var entregas =  (Object.keys(datosObjeto[idProyecto].entregas).length);
-						console.log("entregaaaaaaaas" + entregas );
+						//console.log("entregaaaaaaaas" + entregas );
+
+
 												
 						for(var j=0; j<entregas; j++){
 
@@ -353,7 +404,7 @@ $('#formulario').submit(function() {
 
 								for(var k=0; k<tareas; k++){
 
-									$("#entregas").append('<div class="tareasWp"><div class="hiden"><input class="check" type="checkbox" name="'+datosObjeto[idProyecto].entregas[j].tareas[k][0].titulo+'" value=""><p class="tarea">'+datosObjeto[idProyecto].entregas[j].tareas[k][0].titulo +'</p></div ><div class="tagsWp"><span class="fecha">'+datosObjeto[idProyecto].entregas[j].tareas[k][0].entrega+'</span></div><div class="comentsWp"><span class="coments"><a class="com" href="#">'+datosObjeto[idProyecto].entregas[j].tareas[k][0].numComentarios+' comentarios</a></span></div></div>');
+									$("#entregas").append('<div class="tareasWp"><div class="hiden"><input class="check" type="checkbox" name="'+datosObjeto[idProyecto].entregas[j].tareas[k][0].titulo+'" value=""><p class="tarea">'+datosObjeto[idProyecto].entregas[j].tareas[k][0].titulo +'</p></div ><div class="tagsWp"><span class="fecha">'+datosObjeto[idProyecto].entregas[j].tareas[k][0].entrega+'</span></div><div class="comentsWp"><span class="coments"><a class="com" data-idTar="'+datosObjeto[idProyecto].entregas[j].tareas[k][0].idTarea+'" href="#">'+datosObjeto[idProyecto].entregas[j].tareas[k][0].numComentarios+' comentarios</a></span></div></div>');
 															
 
 									$("#entregas").append('');
@@ -361,11 +412,16 @@ $('#formulario').submit(function() {
 								}
 
 
+
+
 								$(".com").click(function(){
 
-									titulo = $(this).text();
+														
+										titulo = $(this).text();
 
-										getComents(titulo);
+										idTarea = $(this).attr("data-idTar");
+
+										getComents(titulo,idProyecto,idTarea);
 									
 								});
 
@@ -388,40 +444,61 @@ $('#formulario').submit(function() {
 
 	});
 
-
+visitedProj=true;
 			
 };
 
+
+$("#atrasCom").click(function(){
+
+
+		actualizarTareas();
+		console.log("lo mande a actualizar");
+
+});
+
 // ACTUALIZAR LISTA DE COMENTS
 
-function getComents(titulo){
+function getComents(titulo, idPro, idTar){
 
-	$.mobile.changePage("#tarea");
+	idProyecto = idPro;
 
-	console.log("hola!");
+	var home = $("#tarea" );
+	$( ":mobile-pagecontainer" ).pagecontainer( "change", home, {  'reload': false,  'allowSamePageTransition': false  });
+
+	console.log("recibo!");
+	console.log(titulo);
+	console.log(idPro);
+	console.log(idTar);
 
 	$("#tarea").on("pageshow", function(){
 
+				if(visitedComents){
 
-		if(!visitedComents){
-			visitedComents = true;
-	
-								
+					$("#coments").empty();
+					$("#tituloTarea").empty();
+					console.log("empty");
+				}
+
+
+				console.log("pgeshow");
 				$("#tituloTarea").text(titulo);
 
-				archivoComentarios = "getComentarios.php?jsoncallback=?"
-				$.getJSON( archivoComentarios, { idTarea:2}) 
+
+				archivoComentarios = "services/getComentarios.php?jsoncallback=?";
+				$.getJSON( archivoComentarios, { idTarea: idTar}) 
 				.done(function(comentarios) {
 
 				if(comentarios.validacion == "ok"){ 
-
-				    	console.log(comentarios);
-						var comentariosCant = (Object.keys(comentarios).length)
+					
+				    	
+						var comentariosCant = (Object.keys(comentarios).length)-1;
+					
 			
 						for(i=0;i<comentariosCant;i++){
 
-							$("#coments").append('<p>'+comentarios[i][0].comentario+'</p>');
-							$("#coments").append('<p>'+comentarios[i][0].usuario+'</p>');
+							$("#coments").append('<p class="comentario">'+comentarios[i][0].comentario+'</p>');
+							$("#coments").append('<div class="userWp"><p class="userComent">'+comentarios[i][0].usuario+'</p></div>');
 
 
 						}
@@ -429,10 +506,11 @@ function getComents(titulo){
 					}
 				});
 
-		};
-
+		$("#submitCom").attr("data-idTar",idTar);
 
 	});
+
+	visitedComents = true;
 	
 };
 
@@ -443,7 +521,7 @@ function getComents(titulo){
 
 
 
-function actualizarComents(){
+function actualizarComents(idTarea){
 
 	$.mobile.changePage("#tarea");
 
@@ -456,8 +534,8 @@ function actualizarComents(){
 
 		$("#coment").val("");
 
-			archivoComentarios = "getComentarios.php?jsoncallback=?"
-			$.getJSON( archivoComentarios, { idTarea:2}) 
+			archivoComentarios = "services/getComentarios.php?jsoncallback=?"
+			$.getJSON( archivoComentarios, { idTarea:idTarea}) 
 			.done(function(comentarios) {
 		
 			if(comentarios.validacion == "ok"){ 
@@ -467,8 +545,8 @@ function actualizarComents(){
 						lastComent = comentariosCant-2;
 						console.log(comentarios);
 
-						$("#coments").append('<p>'+comentarios[lastComent][0].comentario+'</p>');
-						$("#coments").append('<p>'+comentarios[lastComent][0].usuario+'</p>');
+						$("#coments").append('<p class="comentario">'+comentarios[lastComent][0].comentario+'</p>');
+						$("#coments").append('<div class="userWp"><p class="userComent">'+comentarios[lastComent][0].usuario+'</p></div>');
 
 						
 											
@@ -478,9 +556,6 @@ function actualizarComents(){
 
 	});
 
-	actualizarTareas();
-
-	console.log("lo mande a actualizar");
 
 }
 
@@ -488,24 +563,65 @@ function actualizarComents(){
 
 function actualizarTareas(){
 
-	var datosUsuario = "mr";
-	var datosPassword ="123"
-	archivoValidacion = "validacionReal2.php?jsoncallback=?"
+
+	archivoValidacion = "services/validacionReal2.php?jsoncallback=?"
 					 
-	$.getJSON( archivoValidacion, { usuario:datosUsuario ,password:datosPassword}) 
+	$.getJSON( archivoValidacion, { usuario:usuario ,password:pass}) 
 					
 	.done(function(respuestaServer) {
 
 		if(respuestaServer.validacion == "ok"){ 
 
-			console.log("bienvenido");
-			var datosLocales = JSON.stringify(respuestaServer);
-			//alert(datosLocales);
+			datosLocales = JSON.stringify(respuestaServer);
 			localStorage.setItem("datos", datosLocales);
-			var datosGuardados = localStorage.getItem("datos");
-			var datosObjeto = JSON.parse(datosGuardados); 
-			var usuario = datosObjeto.usuario;
+
+			datosGuardados = localStorage.getItem("datos");
+			datosObjeto = JSON.parse(datosGuardados); 
+			usuario = datosObjeto.usuario;
+			pass = datosObjeto.contra;
+			idUsuario = datosObjeto.idUsuario;
+
+			$("#entregas").empty();
+
+			console.log("bienvenido");
+			console.log(idProyecto);
+			var entregas =  (Object.keys(datosObjeto[idProyecto].entregas).length);
+			console.log("entregaaaaaaaas" + entregas );
+									
+			for(var j=0; j<entregas; j++){
+
+				$("#entregas").append('<a class="entregaToggle" data-numEntrega="'+j+'" href="#">' + datosObjeto[idProyecto].entregas[j][0].titulo + '</a>');
+				var tareas =  (Object.keys(datosObjeto[idProyecto].entregas[j].tareas).length);
+
+				if(tareas>0){
+
+					for(var k=0; k<tareas; k++){
+
+						$("#entregas").append('<div class="tareasWp"><div class="hiden"><input class="check" type="checkbox" name="'+datosObjeto[idProyecto].entregas[j].tareas[k][0].titulo+'" value=""><p class="tarea">'+datosObjeto[idProyecto].entregas[j].tareas[k][0].titulo +'</p></div ><div class="tagsWp"><span class="fecha">'+datosObjeto[idProyecto].entregas[j].tareas[k][0].entrega+'</span></div><div class="comentsWp"><span class="coments"><a class="com" data-idTar="'+datosObjeto[idProyecto].entregas[j].tareas[k][0].idTarea+'" href="#">'+datosObjeto[idProyecto].entregas[j].tareas[k][0].numComentarios+' comentarios</a></span></div></div>');
+												
+
+						$("#entregas").append('');
+
+					}
+
+
+					$(".com").click(function(){
+
+						
+						titulo = $(this).text();
+
+						idTarea = $(this).attr("data-idTar");
+
+						getComents(titulo,idProyecto,idTarea);
+						
+					});
+
+
+				};
 			
+		};
+
+		
 			
 		 } else{
 	
@@ -515,41 +631,7 @@ function actualizarTareas(){
 	});
 
 
-		var entregas =  (Object.keys(datosObjeto[idProyecto].entregas).length);
-		console.log("entregaaaaaaaas" + entregas );
-								
-		for(var j=0; j<entregas; j++){
-
-			$("#entregas").append('<a class="entregaToggle" data-numEntrega="'+j+'" href="#">' + datosObjeto[idProyecto].entregas[j][0].titulo + '</a>');
-			var tareas =  (Object.keys(datosObjeto[idProyecto].entregas[j].tareas).length);
-
-			if(tareas>0){
-
-				for(var k=0; k<tareas; k++){
-
-					$("#entregas").append('<div class="tareasWp"><div class="hiden"><input class="check" type="checkbox" name="'+datosObjeto[idProyecto].entregas[j].tareas[k][0].titulo+'" value=""><p class="tarea">'+datosObjeto[idProyecto].entregas[j].tareas[k][0].titulo +'</p></div ><div class="tagsWp"><span class="fecha">'+datosObjeto[idProyecto].entregas[j].tareas[k][0].entrega+'</span></div><div class="comentsWp"><span class="coments"><a class="com" href="#">'+datosObjeto[idProyecto].entregas[j].tareas[k][0].numComentarios+' comentarios</a></span></div></div>');
-											
-
-					$("#entregas").append('');
-
-				}
-
-
-				$(".com").click(function(){
-
-					titulo = $(this).text();
-
-						getComents(titulo);
-					
-				});
-
-
-			};
 		
-		};
-
-
-	alert("se termino de actualizar todo");
 
 
 }
@@ -577,15 +659,18 @@ $('#agregarCom').submit(function() {
 
 	var coment = $("#coment").val();
 
+
+	var idTarea = $("#submitCom").attr("data-idTar");
+
 	actualizedComents = false;
 
-	archivoComentarios = "addComentario.php?jsoncallback=?"
-		$.getJSON( archivoComentarios, { idTarea:2, idUsuario:2, comentario: coment}) 
+	archivoComentarios = "services/addComentario.php?jsoncallback=?"
+		$.getJSON( archivoComentarios, { idTarea:idTarea, idUsuario:idUsuario, comentario: coment}) 
 		.done(function(nuevoComentario) {
 
 		
 		if(nuevoComentario.validacion == "ok"){ 
-			actualizarComents();
+			actualizarComents(idTarea);
 		 
 		  }
 

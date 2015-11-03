@@ -1,12 +1,12 @@
 <?php
 header('Content-Type: text/javascript; charset=UTF-8'); 
 
-include 'services/Conector.php';
-include 'services/Usuario.php';
-include 'services/Proyecto.php';
-include 'services/Tareas.php';
-include 'services/Entregas.php';
-include 'services/Comentario.php';
+include 'Conector.php';
+include 'Usuario.php';
+include 'Proyecto.php';
+include 'Tareas.php';
+include 'Entregas.php';
+include 'Comentario.php';
 
 $resultados = array();
 
@@ -32,6 +32,7 @@ if(isset($_GET['idTarea'])) {
 			 					'comentario' => utf8_encode($comFila["comentario"]),
 			 					'fecha' =>  utf8_encode($comFila["fechaComentario"]),
 			 					'usuario' =>utf8_encode($comFila["nombre"]),
+			 					'idTarea' =>utf8_encode($comFila["idTarea"]),
 			 				    ],
 							 
 			 				);

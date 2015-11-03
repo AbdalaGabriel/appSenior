@@ -1,4 +1,4 @@
-#inicio,#home{
+#inicio, #home{
 	/*background:#160a33;
 	/*Permalink-usetoeditandsharethisgradient:http://colorzilla.com/gradient-editor/#160a33+0,380763+100*/
 background:#160a33;/*Oldbrowsers*/
@@ -13,8 +13,22 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#160a33',endCol
 	text-shadow:none;
 }
 
+h1{
+	    font-weight: 100;
+    text-align: left;
+}
 
-.page{padding:5%;color:white;max-width:90%;}
+.ui-bar-a, .ui-page-theme-a .ui-bar-inherit, html .ui-bar-a .ui-bar-inherit, html .ui-body-a .ui-bar-inherit, html body .ui-group-theme-a .ui-bar-inherit {
+    background-color: #2C0F71 !important;
+    /* border-color: #FFF; */
+    color: #FFF !important;
+    border: none !important;
+    /* text-shadow: 0 1px 0 #eee; */
+    font-weight: 700 !important;
+}
+
+
+.page{padding:5%;color:white;max-width:100%;}
 
 #canvas{
 	position:absolute;
@@ -35,12 +49,17 @@ border:none;
 	position:absolute;
 	bottom:5%;
 	width:80%;
-	margin:010%;
+	margin:0 10%;
 }
 
-input{text-align:center;}
+.atrasHome{
+    margin: 1em !important;
+    width: 1em !important;
+}
 
-.submitButton,.ui-btn{
+input {text-align:center;}
+
+.submitButton, .ui-btn{
 	background:#22fca8;
 color:white;
 border:none;
@@ -52,40 +71,54 @@ margin:10%000;
 	overflow:hidden;
 }
 
+#inicio div[data-role="header"]{
+        background: none !important;
+}
 
-#homeh3{
+
+#inicio div[data-role="content"] {
+    padding: 0;
+}
+
+#home h3{
 	font-size:1.5em;
 text-align:center;
 font-weight:100;
 margin:2em 0;
 text-transform:uppercase;
+color: white;
 }
 
 #projects{
 	background:white;
 	color:black;
+	    background: #F1F2F9;
 }
 
 .proyWp{
-	max-width:100%;
-padding:2em;
-background:white;
-border-top:#37FF92 5px solid;
-margin:.5em 0;
+    max-width: 100%;
+    padding: 2em;
+    background: white;
+    border-top: #37FF92 5px solid;
+    margin: 5%;
+    text-align: center;
 }
 
-.proyWpa{
+.proyWp a{
 	display:block;
 max-width:100%;
 text-decoration:none;
 color:grey;
 font-weight:bold;
 font-family:Raleway;
+color: white;
 }
 
 #projects{
-	padding-top:5em;
+	padding-top:0em;
 }
+
+
 
 .entregaToggle{
 	color:#B8BDCC;
@@ -104,8 +137,8 @@ margin:0em 0.5em;
 
 }
 
-#projects.header{
-	background:#FFC723;;
+#projects .header{
+	background:#FFC723;
 padding:1em 5%;
 position:absolute;
 top:0;
@@ -114,19 +147,25 @@ width:91%;
 text-align:center;
 color:#FFFFFF;
 text-shadow:none;
+    padding: 1.5em;
+    margin: 0 0 2em 0;
 }
 
 .check{
 	float:left;
 margin:0 1em 0 0;
 height:5em;
+    display: none;
 }
 
 .tarea{
-	padding:.5em 1em;
-background:#F3EEFD;
-border-radius:3em;
-float:left;
+padding: .5em 1em;
+    background: #F1F2F9;
+    border-radius: 3em;
+    float: left;
+    font-weight: bold;
+    font-size: .9em;
+    color: #3388CC;
 }
 
 .fecha{
@@ -136,22 +175,26 @@ color:#FFFFFF;
 font-size:medium;
 border-radius:2em;
 /*font-weight:bold;*/
-border:1px solid #1EE8B7;
+border: 1px solid #1EE8B7;
 text-shadow:none;
-margin:2em 0;
+    margin: 1em 0;
+    font-size: .78em;
 }
 
 .tareasWp{
-	overflow:hidden;
-height:7em;
+    overflow: hidden;
+    background: white;
+    margin: .5em 0 0 0;
+    padding: .5em 1em;
+      border-top: 3px solid #C9E0EF;
 }
 
-.tareasWp:last-child{
-	margin-bottom:2em;
+.tareasWp :last-child{
+	    margin-bottom: 1em;
 }
 
 .tagsWp{
-	margin:0.5em 01.5em;
+	margin: 0 .5em 0 0;
 	float:left;
 }
 
@@ -160,24 +203,24 @@ height:7em;
 }
 
 #tituloProyectos{
-	min-height:1.1em;
-text-align:center;
-font-size:16px;
+min-height: 1.1em;
+text-align: center;
+font-size: 16px;
 display:block;
-margin:0!important;
+margin:0 !important;
 padding:0;
-text-overflow:ellipsis;
+text-overflow: ellipsis;
 overflow:hidden;
 white-space:nowrap;
-outline:0!important;
-text-transform:uppercase!important;
+outline:0 !important;
+text-transform:uppercase !important;
 }
 
 .comentsWp{
 	float:left;
 }
 
-.comentsWpspan{
+.comentsWp span{
 	padding:.5em 1em;
 background:#FFF67F;
 border-radius:2em;
@@ -186,9 +229,66 @@ color:#CA7070;
 }
 
 
-.comentsWpspana{
+
+.userComent{
+	background: #D6ECFF;
+    padding: .5em 1em;
+    border-radius: 1em;
+    float: left;
+    clear: both;
+}
+
+.comentario{
+	    float: left;
+    background: white;
+    padding: 1em;
+    margin: 0 1em;
+    color: grey;
+    font-size: .9em;
+    border-radius: 1em;
+}
+
+.userWp{
+	width: 100%;
+	    overflow: hidden;
+}
+
+.comentsWp span a{
 	
 text-shadow:none;
 color:#CA7070;
 text-decoration:none;
+}
+
+
+#entregas{
+	    margin: 7em 1em;
+}
+
+
+.com{
+	    font-size: .8em;
+}
+
+textarea #coment{
+	    height: 100px;
+    max-width: 90%;
+    margin: 0 5%;
+}
+
+
+#submitCom{
+	 max-width: 90%;
+    margin: 0 5%;
+}
+
+#tarea .main{
+	padding: 1em;
+}
+
+.ui-page-theme-a .ui-btn, html .ui-bar-a .ui-btn, html .ui-body-a .ui-btn, html body .ui-group-theme-a .ui-btn, html head+body .ui-btn.ui-btn-a, .ui-page-theme-a .ui-btn:visited, html .ui-bar-a .ui-btn:visited, html .ui-body-a .ui-btn:visited, html body .ui-group-theme-a .ui-btn:visited, html head+body .ui-btn.ui-btn-a:visited {
+    background-color: #20FFB7 !important;
+    border-color: #35FFBE !important;
+    color: #2F3835 !important;
+    text-shadow: none !important;
 }

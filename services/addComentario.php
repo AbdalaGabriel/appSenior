@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: text/javascript; charset=UTF-8'); 
 
-include 'services/Conector.php';
-include 'services/Comentario.php';
+include 'Conector.php';
+include 'Comentario.php';
 
 $resultados = array();
 
