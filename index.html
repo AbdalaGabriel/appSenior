@@ -132,7 +132,8 @@
 	function onDeviceReady() {  checkConexion();}
 	
 	function checkConexion() {
-
+		
+		$.mobile.pageContainer.pagecontainer({ defaults: true });
 		// Pregunto por conexión.
 
 		if (navigator.onLine) {
